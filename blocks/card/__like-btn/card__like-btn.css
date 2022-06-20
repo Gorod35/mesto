@@ -1,0 +1,23 @@
+.card__like-btn {
+    width: 22px;
+    height: 19px;
+    border: none;
+    background-size: contain;
+    transition: opacity 0.1s ease-out;
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.card__like-btn:hover {
+    stroke-opacity: 0.5;
+    cursor: pointer;
+}
+
+.card__like-btn:active {
+    fill: #000;
+}
+
+.card__like-btn:focus {
+    fill: #000;
+}
