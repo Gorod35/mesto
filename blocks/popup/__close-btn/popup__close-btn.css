@@ -1,7 +1,7 @@
 .popup__close-btn {
     width: clamp(20px, calc(20px + (((100vw - 320px) * 12) / 960)), 32px);
     height: clamp(20px, calc(20px + (((100vw - 320px) * 12) / 960)), 32px);
-    background-image: url(/images/close-btn.svg);
+    background-image: url(../../../images/close-btn.svg);
     background-position: center;
     background-size: contain;
     background-color: transparent;
