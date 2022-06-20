@@ -7,8 +7,10 @@
     background-color: transparent;
     border: none;
     position: absolute;
-    top: calc((-1)*clamp(41px, calc(41px + (((100vw - 320px) * 1) / 960)), 42px));
-    right: calc((-1)*clamp(2px, calc(2px + (((100vw - 320px) * 42) / 960)), 44px));
+    --calctop: clamp(41px, calc(41px + (((100vw - 320px) * 1) / 960)), 42px);
+    --calcright: clamp(2px, calc(2px + (((100vw - 320px) * 42) / 960)), 44px);
+    top: calc((-1)*var(--calctop));
+    right: calc((-1)*var(--calcright));
     transition: opacity ease 0.5s;
 }
 
