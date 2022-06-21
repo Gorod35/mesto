@@ -7,7 +7,7 @@
     border: none;
     color: #ffffff;
     font-weight: 400;
-    font-size: clamp(14px, 0.7917rem + 0.4167vw, 18px);
+    font-size: clamp(14px, calc(14px + (((100vw - 320px) * 4) / 960)), 18px);
     line-height: 1.21;
     margin-top: clamp(15px, calc(15px + (((100vw - 320px) * 3) / 960)), 18px);
     transition: opacity ease 0.5s;

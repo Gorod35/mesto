@@ -5,8 +5,8 @@ let editButton = page.querySelector('.profile__edit-btn');
 let closeButton = page.querySelector('.popup__close-btn');
 submitButton = page.querySelector('.popup__submit-btn');
 let popup = page.querySelector('.popup')
-let userName = page.querySelector('.popup__input_name');
-let userDescription = page.querySelector('.popup__input_description');
+let userName = page.querySelector('.popup__input_type_name');
+let userDescription = page.querySelector('.popup__input_type_description');
 
 userName.value = profiletitle.textContent;
 userDescription.value = profilesubtitle.textContent;

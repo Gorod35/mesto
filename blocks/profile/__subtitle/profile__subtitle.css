@@ -1,6 +1,6 @@
 .profile__subtitle {
     font-weight: 400;
-    font-size: clamp(0.875rem, 0.7917rem + 0.4167vw, 1.125rem);
+    font-size: clamp(14px, calc(14px + (((100vw - 320px) * 4) / 960)), 18px);
     line-height: 1.21;
     color: #FFFFFF;
     margin: 0;
