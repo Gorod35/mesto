@@ -31,7 +31,7 @@ const profilesubtitle = page.querySelector('.profile__subtitle');
 const editButton = page.querySelector('.profile__edit-btn');
 const addButton = page.querySelector('.profile__add-btn');
 
-const zoomPopup = page.querySelector('.popup__zoom-photo');
+const zoomPopup = page.querySelector('.popup_zoom-photo');
 
 const cardTemplate = document.querySelector('#card').content;
 const cardsPlace = document.querySelector('.card__items');
@@ -78,14 +78,14 @@ for (let i = 0; i < initialCards.length; i++) {
 
 
 
-const editProfilePopup = page.querySelector('.popup__edit-profile') // объявляем попап-редактирования
+const editProfilePopup = page.querySelector('.popup_edit-profile') // объявляем попап-редактирования
 const userName = editProfilePopup.querySelector('.popup__input_type_name'); // объявляем поле имя
 const userDescription = editProfilePopup.querySelector('.popup__input_type_description'); // объявляем поле описание
 const editProfilesubmitButton = editProfilePopup.querySelector('.popup__submit-btn'); // объявляем кнопку отправить
 const editProfilecloseButton = editProfilePopup.querySelector('.popup__close-btn'); // объявляем кнопку закрыть
 
 
-const addCardPopup = page.querySelector('.popup__add-card') // объявляем попап-редактирования
+const addCardPopup = page.querySelector('.popup_add-card') // объявляем попап-редактирования
 const placeName = addCardPopup.querySelector('.popup__input_type_name'); // объявляем поле имя
 const imageLink = addCardPopup.querySelector('.popup__input_type_link'); // объявляем поле описание
 const addCardsubmitButton = addCardPopup.querySelector('.popup__submit-btn'); // объявляем кнопку отправить
