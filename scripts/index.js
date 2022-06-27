@@ -48,11 +48,14 @@ const cardsPlace = document.querySelector('.card__items');
     cardImage.src = link;
     cardImage.alt = name;
 
-    
+    const zoomPopupImage = zoomPopup.querySelector('.popup__img');
+    const zoomPopupImgCaption = zoomPopup.querySelector('.popup__imgcaption');
+
+
     cardImage.addEventListener('click', function(){
-      const zoomPopupImage = zoomPopup.querySelector('.popup__img');
+      
       zoomPopupImage.src = link;
-      zoomPopup.querySelector('.popup__imgcaption').textContent = name;
+      zoomPopupImgCaption.textContent = name;
       zoomPopupImage.alt = name;
 
       openPopup(zoomPopup);
@@ -126,8 +129,6 @@ buttonEditProfile.addEventListener('click', function(){
 
 buttonEditProfileClose.addEventListener('click', function() {
   closePopup(popupEditProfile);
-  userName.value = profiletitle.textContent;
-  userDescription.value = profilesubtitle.textContent;
 })
 
 const popupFormEditProfile = page.querySelector('.popup__form_edit-profile');
