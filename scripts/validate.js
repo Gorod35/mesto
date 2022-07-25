@@ -1,8 +1,14 @@
 const formAddCard = document.querySelector('.popup__form_add-card');
-const formEditProfile = document.querySelector('.popup__form_edit-profile');
 
-formAddCard.addEventListener('input', handlerInputForm);
-formEditProfile.addEventListener('input', handlerInputForm);
+
+function enableValidation() {
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
+    formList.forEach(formElement => {
+        formElement.addEventListener('input', handlerInputForm);
+    })
+}
+
+enableValidation();
 
 validateForm(formAddCard);
 
@@ -28,4 +34,9 @@ function validateForm(form) {
 function validateInput(input) {
     const errorElement = input.parentNode.querySelector(`.${input.name}-error`);
     errorElement.textContent = input.validationMessage;
-}
+    if (input.validationMessage !== '') {
+        input.classList.add('popup__input_invalid');
+    } else {
+        input.classList.remove('popup__input_invalid');
+    }
+    }
