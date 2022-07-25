@@ -103,7 +103,20 @@ const buttonAddCardClose = popupAddCard.querySelector('.popup__close-btn'); // Ð
 
 function openPopup(popup) {
     popup.classList.add('popup__opened');
+    document.addEventListener('keydown', closePopupEsc);
 }
+
+function closePopup(popup) {
+  popup.classList.remove('popup__opened');
+  document.removeEventListener('keydown', closePopupEsc);    
+}
+
+function closePopupEsc (evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup__opened');
+    closePopup(popupOpened);
+  };
+};
 
 function editProfile(evt) {
     evt.preventDefault();
@@ -112,9 +125,16 @@ function editProfile(evt) {
     closePopup(popupEditProfile);
 }
 
-function closePopup(popup) {
-    popup.classList.remove('popup__opened');
-}
+
+
+const popupOverlay = document.querySelectorAll('.popup');
+
+popupOverlay.forEach(item => {
+  item.addEventListener('click', function(evt) {
+    closePopup(evt.target)});
+})
+
+
 
 
 
@@ -146,7 +166,6 @@ buttonAddCardClose.addEventListener('click', function() {
   closePopup(popupAddCard)
 });
 popupFormAddCard.addEventListener('submit', function(evt) {
-  console.log(evt);
     evt.preventDefault();
     renderCard(placeName.value, imageLink.value);
     closePopup(popupAddCard);
