@@ -123,9 +123,9 @@ function editProfile(evt) {
 
 
 
-const popupForm = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 
-popupForm.forEach(item => {
+popups.forEach(item => {
   item.addEventListener('click', function(evt) {
     if (evt.target.classList.contains('popup__opened')) {
       closePopup(item); }
