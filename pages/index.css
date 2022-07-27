@@ -41,5 +41,5 @@
 @import url(../blocks/popup/_zoom-photo/popup_zoom-photo.css);
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__error/popup__error.css);
-@import url(../blocks/popup/__button/_invalid/popup__button_invalid.css);
 @import url(../blocks/popup/__input/_invalid/popup__input_invalid.css);
+@import url(../blocks/popup/__submit-btn/_invalid/popup__submit-btn_invalid.css);

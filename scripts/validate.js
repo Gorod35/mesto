@@ -3,7 +3,7 @@
     formSelector: '.popup__form', 
     inputSelector: '.popup__input', 
     submitButtonSelector: '.popup__submit-btn', 
-    inactiveButtonClass: 'popup__button_invalid', 
+    inactiveButtonClass: 'popup__submit-btn_invalid', 
     inputErrorClass: 'popup__input_invalid', 
     errorClass: 'popup__input_form-error' 
   };
