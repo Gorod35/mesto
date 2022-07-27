@@ -1,4 +1,3 @@
-const formAddCard = document.querySelector('.popup__form_add-card');
 
   const settings = { 
     formSelector: '.popup__form', 
@@ -10,7 +9,6 @@ const formAddCard = document.querySelector('.popup__form_add-card');
   };
 
 
-validateForm(formAddCard);
 
 
 function handlerInputForm(evt) {
