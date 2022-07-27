@@ -175,5 +175,5 @@ popupFormAddCard.addEventListener('submit', function(evt) {
     form.reset();
     const submitButton = form.querySelector('.popup__submit-btn');
     submitButton.setAttribute('disabled', true);
-    submitButton.classList.add('popup__button_invalid');
+    submitButton.classList.add('popup__submit-btn_invalid');
 });
