@@ -26,8 +26,10 @@ export class Card {
       this._cardImage.addEventListener('click', () => {
         this._handleOpenPopup(this._name, this._link);
       });
+
+      this._likeButton = this._element.querySelector('.card__like-btn');
   
-      this._element.querySelector('.card__like-btn').addEventListener('click', () => {
+      this._likeButton.addEventListener('click', () => {
         this._handleLikeClick();
       });
   
@@ -37,7 +39,7 @@ export class Card {
     }
   
     _handleLikeClick() {
-      this._element.querySelector('.card__like-btn').classList.toggle('card__like-btn_active');
+      this._likeButton.classList.toggle('card__like-btn_active');
     }
   
     _handleDeleteClick() {
