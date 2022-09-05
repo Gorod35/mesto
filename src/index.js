@@ -24,10 +24,10 @@ function renderCard(data) { // функция отрисовки карточк�
 }
 
 const popupWithImage = new PopupWithImage('.popup_zoom-photo');
+popupWithImage.setEventListeners();
 
 function handleOpenPopup(name, link) { // обработчик открытия для зум попапа, меняет картинку в зум попапе на нужную и открывает его
   popupWithImage.open(name, link);
-  popupWithImage.setEventListeners();
 }
 
 const cardList = new Section({
