@@ -4,46 +4,156 @@ import { FormValidator } from './components/FormValidator.js';
 import { Section } from './components/Section.js';
 import { PopupWithImage } from './components/PopupWithImage.js';
 import { PopupWithForm } from './components/PopupWithForm.js';
+import { PopupWithConfirm } from './components/PopupWithConfirm.js';
 import { UserInfo } from './components/UserInfo.js';
+import { Api } from './components/Api.js'
 import {
   buttonEditProfile,
   buttonAddImage,
+  buttonChangeAvatar,
+  profileImage,
   userName,
   userDescription,
   popupFormEditProfile,
   popupFormAddCard,
+  popupFormChangeAvatar,
   settings,
-  initialCards
 } from './utils/constants.js';
+
+let currentId = '';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-49/', 
+  headers: {  
+    authorization: '15db24d7-fbd4-4557-a75b-6ba2280bfc57',
+    'Content-Type': 'application/json'
+    }
+});
 
 
 function renderCard(data) { // функция отрисовки карточки. Создаёт новый класс карточки, генерирует элемент карточки, и вставляет первым в кард итемс
-  const card = new Card(data, '#card', handleOpenPopup);
+  const card = new Card(data, '#card', handleOpenPopup, handleDeleteClick, handleLikeClick, currentId);
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-const popupWithImage = new PopupWithImage('.popup_zoom-photo');
-popupWithImage.setEventListeners();
+function handleDeleteClick(cardElement, cardId) {
+  confirmDelete.handlerFormSubmit(() => {
+    api.deleteCard(cardId)
+    .then(() => {
+      cardElement.remove();
+    })
+  })
+  confirmDelete.open();
+  // confirmDelete.sendCardElement(cardElement, cardId);
+}
 
-function handleOpenPopup(name, link) { // обработчик открытия для зум попапа, меняет картинку в зум попапе на нужную и открывает его
-  popupWithImage.open(name, link);
+function handleLikeClick(cardId) {
+  if (!this._isLiked()) {
+    api.likeCard(cardId)
+    .then((res) => {
+      this._element.querySelector('.card__counter').textContent = res.likes.length;
+      this._likeButton.classList.add('card__like-btn_active');
+    })
+  }
+
+  else if (this._isLiked()) {
+    api.dislikeCard(cardId)
+    .then((res) => {
+      this._element.querySelector('.card__counter').textContent = res.likes.length;
+      this._likeButton.classList.remove('card__like-btn_active');
+    })
+  }
 }
 
 const cardList = new Section({
-  items: initialCards,
   renderer: (data) => {
     cardList.addItem(renderCard(data));
   }
 }, '.card__items');
 
-cardList.renderItems();
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+.then(([cards, userData]) => {
+  currentId = userData._id;
+
+  cardList.renderItems(cards.reverse());
+  userInfo.setUserInfo(userData.name, userData.about);
+  profileImage.src = userData.avatar;
+})
+
+
+const addCard = new PopupWithForm('.popup_add-card', {
+  handleFormSubmit: (data) => {
+    addCard.renderLoading(true);
+    api.addCard(data)
+    .then((res) => {
+      cardList.addItem(renderCard(res));
+      addCard.close();
+    })
+    .finally(() => {
+      addCard.renderLoading(false);
+    })
+    
+    popupFormAddCardValidation.disableSubmitButton();
+  }
+});
+
+addCard.setEventListeners();
+
+
+
+
+
+
+const popupWithImage = new PopupWithImage('.popup_zoom-photo');
+popupWithImage.setEventListeners();
+
+const confirmDelete = new PopupWithConfirm('.popup_confirm');
+confirmDelete.setEventListeners();
+
+
+
+
+function handleOpenPopup(name, link) { // обработчик открытия для зум попапа, меняет картинку в зум попапе на нужную и открывает его
+  popupWithImage.open(name, link);
+}
+
+
+
+
+
+
+
 
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
 
 
+const changeAvatar = new PopupWithForm('.popup_refresh-avatar', {
+  handleFormSubmit: (data) =>  {
+    changeAvatar.renderLoading(true);
+    api.setAvatar(data.link)
+    .then((res) => {
+      profileImage.src = res.avatar;
+      changeAvatar.close();
+    })
+    .finally(() => {
+      editProfile.renderLoading(false);
+    })
+  }
+})
 
+changeAvatar.setEventListeners();
+
+const popupFormChangeAvatarValidation = new FormValidator(settings, popupFormChangeAvatar);
+popupFormChangeAvatarValidation.enableValidation();
+
+
+
+
+buttonChangeAvatar.addEventListener('click', () => {
+  changeAvatar.open();
+});
 
 
 const popupFormEditProfileValidation = new FormValidator(settings, popupFormEditProfile); // создаём класс валидации для попапа редактирования профиля
@@ -51,9 +161,22 @@ popupFormEditProfileValidation.enableValidation();
 
 const editProfile = new PopupWithForm('.popup_edit-profile', {
   handleFormSubmit: (data) => {
-    userInfo.setUserInfo(data.username, data.description);
+    editProfile.renderLoading(true);
+    api.setUserInfo(data)
+    .then((res) => {
+      userInfo.setUserInfo(res.name, res.about);
+      editProfile.close();
+    })
+
+    .finally(() => {
+      editProfile.renderLoading(false);
+    })
+    
+    
   }
 })
+
+
 
 editProfile.setEventListeners();
 
@@ -67,18 +190,30 @@ buttonEditProfile.addEventListener('click', function () { // слушатель 
 const popupFormAddCardValidation = new FormValidator(settings, popupFormAddCard); // создаём класс валидации для попапа добавления карточки
 popupFormAddCardValidation.enableValidation(); // включает валидацию формы добавления карточки
 
-const addCard = new PopupWithForm('.popup_add-card', {
-  handleFormSubmit: (data) => {
-    cardList.addItem(renderCard(data));
-    popupFormAddCardValidation.disableSubmitButton();
-  }
-});
 
-addCard.setEventListeners();
 
 buttonAddImage.addEventListener('click', () => { // слушатель по клику добавления карточки
   addCard.open();
 });
+
+
+  // fetch('https://nomoreparties.co/v1/cohort-49/users/me', {
+  //   headers: {
+  //     authorization: '15db24d7-fbd4-4557-a75b-6ba2280bfc57'
+  //   }
+  // })
+  // .then((res) => {
+  //   return res.json(); // возвращаем результат работы метода и идём в следующий then
+  // })
+  // .then((data) => {
+  //   userInfo.setUserInfo(data.name, data.about, data.avatar);
+  // })
+  // .catch((err) => {
+  //   console.log('Ошибка. Запрос не выполнен');
+  // });
+
+
+
 
 
 
