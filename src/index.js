@@ -43,9 +43,11 @@ function handleDeleteClick(cardElement, cardId) {
     .then(() => {
       cardElement.remove();
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен');
+  })
   })
   confirmDelete.open();
-  // confirmDelete.sendCardElement(cardElement, cardId);
 }
 
 function handleLikeClick(cardId) {
@@ -55,6 +57,9 @@ function handleLikeClick(cardId) {
       this._element.querySelector('.card__counter').textContent = res.likes.length;
       this._likeButton.classList.add('card__like-btn_active');
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен');
+  })
   }
 
   else if (this._isLiked()) {
@@ -63,6 +68,9 @@ function handleLikeClick(cardId) {
       this._element.querySelector('.card__counter').textContent = res.likes.length;
       this._likeButton.classList.remove('card__like-btn_active');
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен');
+  })
   }
 }
 
@@ -80,6 +88,9 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   userInfo.setUserInfo(userData.name, userData.about);
   profileImage.src = userData.avatar;
 })
+.catch((err) => {
+  console.log('Ошибка. Запрос не выполнен');
+})
 
 
 const addCard = new PopupWithForm('.popup_add-card', {
@@ -90,6 +101,9 @@ const addCard = new PopupWithForm('.popup_add-card', {
       cardList.addItem(renderCard(res));
       addCard.close();
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен');
+  })
     .finally(() => {
       addCard.renderLoading(false);
     })
@@ -137,6 +151,9 @@ const changeAvatar = new PopupWithForm('.popup_refresh-avatar', {
       profileImage.src = res.avatar;
       changeAvatar.close();
     })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен');
+  })
     .finally(() => {
       editProfile.renderLoading(false);
     })
@@ -167,7 +184,9 @@ const editProfile = new PopupWithForm('.popup_edit-profile', {
       userInfo.setUserInfo(res.name, res.about);
       editProfile.close();
     })
-
+    .catch((err) => {
+        console.log('Ошибка. Запрос не выполнен');
+    })
     .finally(() => {
       editProfile.renderLoading(false);
     })
@@ -195,22 +214,6 @@ popupFormAddCardValidation.enableValidation(); // включает валида�
 buttonAddImage.addEventListener('click', () => { // слушатель по клику добавления карточки
   addCard.open();
 });
-
-
-  // fetch('https://nomoreparties.co/v1/cohort-49/users/me', {
-  //   headers: {
-  //     authorization: '15db24d7-fbd4-4557-a75b-6ba2280bfc57'
-  //   }
-  // })
-  // .then((res) => {
-  //   return res.json(); // возвращаем результат работы метода и идём в следующий then
-  // })
-  // .then((data) => {
-  //   userInfo.setUserInfo(data.name, data.about, data.avatar);
-  // })
-  // .catch((err) => {
-  //   console.log('Ошибка. Запрос не выполнен');
-  // });
 
 
 

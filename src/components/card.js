@@ -55,7 +55,6 @@ export class Card {
   
       this._likeButton.addEventListener('click', () => {
         this._handleLikeClick(this._cardId);
-        console.log(this._isLiked());
       });
   
       this._element.querySelector('.card__delete-btn').addEventListener('click', () => {
@@ -67,9 +66,5 @@ export class Card {
     _isLiked() {
       return (this._likeButton.classList.contains('card__like-btn_active'));
     }
-  
-    // _handleLikeClick() {
-    //   this._likeButton.classList.toggle('card__like-btn_active');
-    // }
   
   }

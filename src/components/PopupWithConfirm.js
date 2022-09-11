@@ -11,11 +11,6 @@ export class PopupWithConfirm extends Popup {
         this._handlerFormSubmit = handler;
     }
 
-    // sendCardElement(cardElement, cardId) {
-    //     this._cardElement = cardElement;
-    //     this._cardId = cardId;
-    // }
-
     setEventListeners() {
         super.setEventListeners();
 
