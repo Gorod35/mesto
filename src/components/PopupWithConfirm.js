@@ -1,9 +1,13 @@
-import { Api } from './Api.js';
 import { Popup } from './Popup.js';
 
 export class PopupWithConfirm extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
+    }
+
+    open(card) {
+        super.open();
+        this._cardId = card._data._id;
     }
 
 
@@ -16,7 +20,7 @@ export class PopupWithConfirm extends Popup {
 
         this._popup.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            this._handlerFormSubmit();
+            this._handlerFormSubmit(this._cardId);
             this.close(evt);
         })
     }

@@ -1,6 +1,7 @@
 export class Card {
 
     constructor(data, templateSelector, handleOpenPopup, handleDeleteClick, handleLikeClick, currentId) {
+      this._data = data;
       this._name = data.name;
       this._link = data.link;
       this._templateSelector = templateSelector;
@@ -58,13 +59,22 @@ export class Card {
       });
   
       this._element.querySelector('.card__delete-btn').addEventListener('click', () => {
-        this._handleDeleteClick(this._element, this._cardId);
+        this._handleDeleteClick();
       })
     }
 
+    setLike(res) {
+      this._element.querySelector('.card__counter').textContent = res.likes.length;
+      this._likeButton.classList.toggle('card__like-btn_active');
+    }
 
-    _isLiked() {
+
+    isLiked() {
       return (this._likeButton.classList.contains('card__like-btn_active'));
+    }
+
+    deleteCard() {
+      this._element.remove();
     }
   
   }

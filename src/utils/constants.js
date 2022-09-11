@@ -3,6 +3,9 @@ export const buttonEditProfile = page.querySelector('.profile__edit-btn');
 export const buttonAddImage = page.querySelector('.profile__add-btn');
 export const buttonChangeAvatar = page.querySelector('.profile__avatar');
 export const profileImage = page.querySelector('.profile__image');
+export const profileNameSelector = '.profile__title';
+export const profileDescriptionSelector = '.profile__subtitle';
+export const profileAvatarSelector = '.profile__image';
 
 const popupEditProfile = page.querySelector('.popup_edit-profile');
 export const userName = popupEditProfile.querySelector('.popup__input_type_name');

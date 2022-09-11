@@ -3,6 +3,7 @@
     constructor(settings, formElement) {
         this._formElement = formElement;
         this._settings = settings;
+        this._submitButton = this._formElement.querySelector(this._settings.submitButtonSelector);
     }
 
     _handlerInputForm(evt) {
@@ -17,7 +18,6 @@
     }
 
     _validateForm() {
-        this._submitButton = this._formElement.querySelector(this._settings.submitButtonSelector);
         if (this._formElement.checkValidity()) {
             this._submitButton.removeAttribute('disabled');
             this._submitButton.classList.remove(this._settings.inactiveButtonClass);
