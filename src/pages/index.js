@@ -183,7 +183,7 @@ const editProfile = new PopupWithForm('.popup_edit-profile', {
     editProfile.renderLoading(true);
     api.setUserInfo(data)
     .then((res) => {
-      userInfo.setUserInfo(res.name, res.about);
+      userInfo.setUserInfo(res);
       editProfile.close();
     })
     .catch((err) => {
